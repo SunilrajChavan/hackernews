@@ -3,7 +3,6 @@ import { render }  from 'react-dom';
 // import '../src/styles/styles.css';
 import { App } from '../src/components/app';
 import { Provider } from 'react-redux';
-import GlobalStyles from './styles/globals'
 import configureStore from './store'
 
 const renderApp = () => {
@@ -16,8 +15,7 @@ const renderApp = () => {
 
   render(
     <Provider store={store}>
-      <div>
-        <GlobalStyles />
+      <div className="container">
         <App />
       </div>
     </Provider>, document.getElementById('root')

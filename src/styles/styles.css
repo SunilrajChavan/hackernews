@@ -1,0 +1,15 @@
+.hackernews-table {
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+.hackernews-table .table-header {
+  background: #ff6600;
+  color: #fff;
+  font-size: 13px;
+}
+
+.hackernews-table .table-body {
+  font-size: 12px;
+  word-wrap: break-word;
+  word-break: break-all;
+}

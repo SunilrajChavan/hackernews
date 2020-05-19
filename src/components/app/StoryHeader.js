@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react';
-// import hackerNewsApi from '../services/hackerApi'
+import React from 'react';
 
 export const StoryHeader = ({title}) => {
-   return (
-   <th>{title}</th>
-   )
+   return <th scope="col">{title}</th>;
 };
