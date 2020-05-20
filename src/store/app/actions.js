@@ -1,12 +1,12 @@
 const NS = '@hnClone/app';
 
 export const actionTypes = {
-  SET_THEME: `${NS}/SET_THEME`
+  SET_DATA: `${NS}/SET_DATA`
 };
 
 const actions = {
   setTheme: (payload = {}) => ({
-    type: actionTypes.SET_THEME,
+    type: actionTypes.SET_DATA,
     payload,
   })
 };

@@ -13,3 +13,20 @@
   word-wrap: break-word;
   word-break: break-all;
 }
+
+.story-url > a {
+  color: grey;
+}
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  display: inline-block;
+}
+
+.hide-story, .story-url, .arrow-up {
+  cursor: pointer;
+}

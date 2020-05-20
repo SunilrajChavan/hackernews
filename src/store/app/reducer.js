@@ -3,7 +3,7 @@ import {
 } from './actions';
 
 const getInitialState = () => ({
-  theme: 'dark'
+  data: {}
 });
 
 const app = (state = getInitialState(), {
@@ -11,7 +11,7 @@ const app = (state = getInitialState(), {
   payload
 }) => {
   switch (type) {
-    case actionTypes.SET_THEME:
+    case actionTypes.SET_DATA:
       return {
         ...state,
         ...payload

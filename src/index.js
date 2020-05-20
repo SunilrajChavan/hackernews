@@ -10,7 +10,7 @@ const renderApp = () => {
   const store = configureStore(initialState);
 
   store.dispatch({
-    type: '@hnClone/@@init'
+    type: 'SET_DATA'
   });
 
   render(
