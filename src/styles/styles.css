@@ -15,7 +15,7 @@
 }
 
 .story-url > a {
-  color: grey;
+  color: #808080;
 }
 
 .arrow-up {
@@ -23,10 +23,14 @@
   height: 0; 
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-bottom: 5px solid black;
+  border-bottom: 5px solid #808080;
   display: inline-block;
 }
 
 .hide-story, .story-url, .arrow-up {
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
