@@ -22,6 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "heroku-postbuild": "npm run build",
     "test": "react-scripts test",
     "lint": "./node_modules/.bin/eslint ./src/*.js --quiet",
     "eject": "react-scripts eject"
