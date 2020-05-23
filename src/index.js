@@ -1,17 +1,14 @@
 import React from 'react';
 import { render }  from 'react-dom';
-// import '../src/styles/styles.css';
-import { App } from '../src/components/app';
+import { App } from './components/app';
 import { Provider } from 'react-redux';
-import configureStore from './store'
+import configureStore from './store';
+
+import './styles/styles.css';
 
 const renderApp = () => {
   const initialState = {};
   const store = configureStore(initialState);
-
-  store.dispatch({
-    type: 'SET_DATA'
-  });
 
   render(
     <Provider store={store}>

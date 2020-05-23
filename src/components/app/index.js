@@ -1,48 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import hackerNewsApi from '../../services/hackerApi';
+import { useDispatch, useSelector } from 'react-redux';
 import { StoryBody } from '../app/StoryBody';
 import { StoryHeader } from '../app/StoryHeader';
 import { LineChart } from '../app/linechart';
-
-import '../../styles/styles.css';
+import { actions } from '../../actions'
 
 export const App = () => {
-  const [storyIds, setStoryIds] = useState([]);
-  const [pageNumber, setPage] = useState((document.location.hash ? document.location.hash.split('#pageId=')[1] : 1) || 1);
+  const response = useSelector(state => state.app.response);
+  const dispatch = useDispatch();
+  const [pageNumber, setPage] = useState(((document && document.location.hash) ? document.location.hash.split('#pageId=')[1] : 1) || 1);
   const storyHeader = ['Comments', 'Vote Count','Up Vote', 'News Details'];
-  const checkData = (storyIds && storyIds.hits) ? true : false;
-  const chartData = {
-    ids: [],
-    points: []
-  };
-  if(checkData) {
-    storyIds.hits.map((item) => {
-      chartData.ids.push(item.objectID);
-      chartData.points.push(item.points);
-      return chartData;
-    });
-  }
-  
-  useEffect(() => {
-    hackerNewsApi.getStoriesByPage(pageNumber).then(data => data && setStoryIds(data));
-  }, [pageNumber]);
+  const checkData = (response && response.data.hits) ? true : false;
 
-  const goPrevious = (event) => {
+  useEffect(() => {
+    dispatch(actions.fetchPageData(pageNumber));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const goPrevious = () => {
     if(pageNumber <= 1) {
       return false;
     } else {
       setPage(parseInt(pageNumber) - 1);
+      dispatch(actions.fetchPageData(parseInt(pageNumber) - 1));
       document.location.hash = `#pageId=${parseInt(pageNumber) - 1}`;
     }
   };
 
-  const goNext = (event) => {
+  const goNext = () => {
     if(pageNumber >= 1) {
       setPage(parseInt(pageNumber) + 1);
+      dispatch(actions.fetchPageData(parseInt(pageNumber) + 1));
       document.location.hash = `#pageId=${parseInt(pageNumber) + 1}`;
     } else {
       return false;
     }
+  };
+
+  function increasePointsFn1() {
+    console.log('incrrase');
+    // return parseInt(value) + 1;
   };
 
  return (
@@ -56,7 +53,7 @@ export const App = () => {
         </tr>
       </thead>
       <tbody className="table-body">
-      {checkData ? storyIds.hits.map((item) => <StoryBody key={item.objectID} storyDetails={item}/>) : null}
+      {checkData ? response.data.hits.map((item) => <StoryBody key={item.objectID} storyDetails={item} increasePointsFn={increasePointsFn1()}/>) : null}
       </tbody>
     </table>
     <div>
@@ -66,7 +63,7 @@ export const App = () => {
     <div className="chart-container" style={{position:'relative', height:'100%', width: '100%'}}>
       <canvas id="myChart"></canvas>
     </div>
-    {checkData ? <LineChart chartData={chartData}/> : ''}
+    {checkData ? <LineChart chartData={response.chartData}/> : ''}
   </div>
  )
 };
