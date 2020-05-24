@@ -19,6 +19,7 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "serve": "^11.3.1",
     "styled-components": "^5.1.0",
     "typescript": "^3.8.3",
     "webpack": "4.42.0"
@@ -26,9 +27,9 @@
   "scripts": {
     "heroku-prebuild": "npm install --production=false",
     "start": "serve -s build",
-    "start-local": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
-    "heroku-postbuild": "npm install -g serve",
+    "heroku-postbuild": "npm run build",
     "test": "react-scripts test",
     "lint": "./node_modules/.bin/eslint ./src/*.js --quiet",
     "eject": "react-scripts eject"
