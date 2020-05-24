@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoryBody } from '../app/StoryBody';
 import { StoryHeader } from '../app/StoryHeader';
-import { LineChart } from '../app/linechart';
+import { Link } from '../app/Link';
+import { LineChart } from './Linechart';
 import { actions } from '../../actions';
 
 export const App = () => {
@@ -17,7 +18,8 @@ export const App = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const goPrevious = () => {
+  const goPrevious = (event) => {
+    event.preventDefault();
     if(pageNumber <= 1) {
       return false;
     } else {
@@ -27,7 +29,8 @@ export const App = () => {
     }
   };
 
-  const goNext = () => {
+  const goNext = (event) => {
+    event.preventDefault();
     if(pageNumber >= 1) {
       setPage(parseInt(pageNumber) + 1);
       dispatch(actions.fetchPageData(parseInt(pageNumber) + 1));
@@ -51,9 +54,9 @@ export const App = () => {
       {checkData ? response.data.hits.map((item) => <StoryBody pageNumber={pageNumber} key={item.objectID}  storyDetails={item} />) : null}
       </tbody>
     </table>
-    <div>
-      <button onClick={goPrevious}>Previous</button>
-      <button onClick={goNext}>Next</button>
+    <div className='link-wrapper'>
+      <Link label={'Previous'} onClick={goPrevious}/>
+      <Link label={'Next'} onClick={goNext}/>
     </div>
     <div className="chart-container" style={{position:'relative', height:'100%', width: '100%'}}>
       <canvas id="myChart"></canvas>

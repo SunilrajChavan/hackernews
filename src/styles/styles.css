@@ -8,6 +8,22 @@
   font-size: 13px;
 }
 
+.link-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.link-wrapper > a {
+  color: #ff6600;
+  font-weight: bold;
+}
+
+.link-wrapper a + a:before {
+  content: '|';
+  padding: 5px;
+}
+
 .hackernews-table .table-body {
   font-size: 12px;
   word-wrap: break-word;
@@ -33,4 +49,11 @@
 
 .hidden {
   display: none;
+}
+
+.chart-container {  
+  border-top: 3px solid #ff6600;
+  border-bottom: 5px solid #ff6600;
+  padding: 10px;
+  margin: 10px 0;
 }

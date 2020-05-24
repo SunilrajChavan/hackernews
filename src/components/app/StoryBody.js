@@ -26,7 +26,7 @@ export const StoryBody = ({ storyDetails, pageNumber }) => {
   }
 
   const hideStory = (event) => {
-    const { id} = event.target.dataset;
+    const { id } = event.target.dataset;
     localStorage.setItem(`${id}hide`, true);
     dispatch(actions.fetchPageData(pageNumber));
   }
