@@ -1,6 +1,12 @@
 import { actionTypes } from '../actions';
 
-const getInitialState = () => ({});
+const getInitialState = () => ({
+  response: {
+    pageNumber: 1,
+    chartData: {},
+    data: {}
+  }
+});
 
 const app = (state = getInitialState(), {type, payload}) => {
   switch (type) {
@@ -12,7 +18,7 @@ const app = (state = getInitialState(), {type, payload}) => {
         return {
           ...state,
           response: {
-            pageNumber: payload.pageNumber,
+            pageNumber: payload,
             chartData: payload.chartData,
             data: payload.data
           }
