@@ -12,7 +12,7 @@ const renderApp = () => {
 
   render(
     <Provider store={store}>
-      <div className="container">
+      <div className="container p-0">
         <App />
       </div>
     </Provider>, document.getElementById('root')

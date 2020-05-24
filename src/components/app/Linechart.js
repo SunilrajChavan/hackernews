@@ -23,7 +23,7 @@ export const LineChart = ({
         borderColor: [
           'rgba(65, 105, 225, 0.5)'
         ],
-        borderWidth: 4
+        borderWidth: 3
       }]
     },
     options: {
