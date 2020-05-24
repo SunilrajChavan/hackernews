@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoryBody } from '../app/StoryBody';
 import { StoryHeader } from '../app/StoryHeader';
 import { LineChart } from '../app/linechart';
-import { actions } from '../../actions'
+import { actions } from '../../actions';
 
 export const App = () => {
   const response = useSelector(state => state.app.response);
@@ -37,11 +37,6 @@ export const App = () => {
     }
   };
 
-  function increasePointsFn1() {
-    console.log('incrrase');
-    // return parseInt(value) + 1;
-  };
-
  return (
   <div className='story-container'>
     <table className='hackernews-table table table-striped'>
@@ -53,7 +48,7 @@ export const App = () => {
         </tr>
       </thead>
       <tbody className="table-body">
-      {checkData ? response.data.hits.map((item) => <StoryBody key={item.objectID} storyDetails={item} increasePointsFn={increasePointsFn1()}/>) : null}
+      {checkData ? response.data.hits.map((item) => <StoryBody pageNumber={pageNumber} key={item.objectID}  storyDetails={item} />) : null}
       </tbody>
     </table>
     <div>

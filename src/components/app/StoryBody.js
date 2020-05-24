@@ -1,7 +1,9 @@
 /* global URL*/
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../actions';
 
-export const StoryBody = ({ storyDetails }) => {
+export const StoryBody = ({ storyDetails, pageNumber }) => {
   const {
     author,
     created_at,
@@ -9,34 +11,31 @@ export const StoryBody = ({ storyDetails }) => {
     objectID,
     points,
     title,
-    url
+    url,
+    visible
   } = storyDetails;
 
-  const [value, setValue] = useState(
-    localStorage.getItem(`${objectID}points`) || points
-  );
-
-  const [hide, setHide] = useState(
-    localStorage.getItem(`${objectID}hide`) || 'show'
-  );
-
-  useEffect(() => {
-    localStorage.setItem(`${objectID}points`, value);
-  }, [objectID, value]);
-
-  useEffect(() => {
-    localStorage.setItem(`${objectID}hide`, hide);
-  }, [objectID, hide]);
+  const dispatch = useDispatch();
 
   let hostname = url ? (new URL(url).origin) : '';
   const postedAt = Math.floor((new Date() - new Date(created_at)) / 36e5);
-  const increasePoints = event => setValue(parseInt(value) + 1);
-  const hideStory = event => setHide('hidden');
+  const increasePoints = (event) => {
+    const { id, points} = event.target.dataset;
+    localStorage.setItem(`${id}points`, parseInt(points) + 1);
+    dispatch(actions.fetchPageData(pageNumber));
+  }
 
-  return <tr key={objectID} className={`text-body ${hide}`}>
+  const hideStory = (event) => {
+    const { id} = event.target.dataset;
+    localStorage.setItem(`${id}hide`, true);
+    dispatch(actions.fetchPageData(pageNumber));
+  }
+
+
+  return <tr key={objectID} className={`text-body ${!visible ? 'hidden' : ''}`}>
     <td>{num_comments}</td>
-    <td>{value}</td>
-    <td><span className="arrow-up" data-count={value} onClick={increasePoints}></span></td>
+    <td>{points}</td>
+    <td><span className="arrow-up" data-id={objectID} data-points={points} onClick={increasePoints}></span></td>
     <td>
       <span className="story-title">{title} </span>
       <span className="story-url"><a href={url}>({hostname})</a></span>
@@ -44,7 +43,7 @@ export const StoryBody = ({ storyDetails }) => {
         <span className="text-body"> {author} </span>
       </span>
       <span className="text-secondary">{postedAt} hours ago</span>
-      <span className="hide-story" onClick={hideStory}> [hide] </span>
+      <span className="hide-story" data-id={objectID} onClick={hideStory}> [hide] </span>
     </td>
     </tr>;
 };

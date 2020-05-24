@@ -13,8 +13,6 @@ const action = (type, payload) => ({ type, payload })
 export const actions = {
   fetchPageData: (payload = {}) => {
     return async dispatch => {
-      // dispatch(action(actionTypes.FETCH_PAGEDATA, payload));
-
       const data = await hackerNewsApi
         .getStoriesByPage(payload);
       const chartData = {
@@ -22,9 +20,21 @@ export const actions = {
         points: []
       }
       data.hits.map((item) => {
-        chartData.ids.push(item.objectID);
-        chartData.points.push(localStorage.getItem(`${item.objectID}points`) || item.points);
-        return chartData;
+        const getLocalStoragePoints = localStorage.getItem(`${item.objectID}points`);
+        const getLocalStorageVisibility = localStorage.getItem(`${item.objectID}hide`);
+        if(getLocalStoragePoints) {
+          item.points = getLocalStoragePoints;
+        }
+        if(getLocalStorageVisibility) {
+          item.visible = false
+        } else {
+          item.visible = true
+        }
+        if(item.visible) {  
+          chartData.ids.push(item.objectID);
+          chartData.points.push(item.points);
+        }
+        return data;
       });
       dispatch(action(actionTypes.FETCH_SUCCESS, { payload, data, chartData }));
     }
